@@ -1,11 +1,11 @@
-import { createChromiumSceneRunner } from '@shirabe/core'
+import { runChromiumScenes } from '@shirabe/cli'
 import { createReportCenter } from '@shirabe/plugin'
 import { ConsolePlugin } from '@shirabe/console-plugin'
 import path from 'path'
 import fs from 'fs'
 import arg from 'arg'
 
-import { RunnerOptions } from '@shirabe/core/dist/scene'
+import type { RunnerConfig } from '@shirabe/cli'
 
 const PACKAGE_NAME = '@shirabe/sharedarraybuffer'
 const VERSION = 'v0.0.1'
@@ -26,10 +26,7 @@ JSON file format:
 }
 `.trim()
 
-export interface Config {
-  urls?: string[]
-  options?: RunnerOptions
-}
+type Config = Pick<RunnerConfig, 'options' | 'urls'>
 
 function loadConfig(filepath: string): Config {
   const content = fs.readFileSync(path.resolve(filepath))
@@ -67,25 +64,21 @@ async function main(): Promise<void> {
   }
 
   const config = loadConfig(filepath)
-  const reportCenter = createReportCenter({ verbose: args['--verbose'] })
-  const chromiumSceneRunner = await createChromiumSceneRunner(
-    [
+  const reportCenter = createReportCenter()
+  if (args['--verbose'] === true) {
+    reportCenter.on('report', console.warn)
+  }
+
+  await runChromiumScenes(reportCenter, {
+    ...config,
+    plugins: [
       new ConsolePlugin({
         watch: ['warning'],
         filter: message => message.text()?.includes('SharedArrayBuffer'),
       }),
     ],
-    reportCenter,
-    config.options,
-  )
+  })
 
-  console.warn(chromiumSceneRunner.browserInfo)
-
-  for (const url of config.urls ?? []) {
-    console.warn(url)
-    await chromiumSceneRunner.run(url)
-  }
-  await chromiumSceneRunner.close()
   console.log(JSON.stringify(reportCenter.getReports(), undefined, 2))
   process.exit(0)
 }

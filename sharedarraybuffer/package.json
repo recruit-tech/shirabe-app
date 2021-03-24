@@ -26,9 +26,9 @@
     "access": "public"
   },
   "dependencies": {
-    "@shirabe/console-plugin": "^0.0.1",
-    "@shirabe/core": "^0.0.1",
-    "@shirabe/plugin": "^0.0.1",
+    "@shirabe/cli": "^0.0.3",
+    "@shirabe/console-plugin": "^0.0.3",
+    "@shirabe/plugin": "^0.0.3",
     "arg": "^5.0.0",
     "playwright": "^1.8.0"
   },
