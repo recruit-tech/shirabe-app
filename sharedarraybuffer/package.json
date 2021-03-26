@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/index.js",
   "bin": {
-    "shirabe": "bin/app.js"
+    "shirabe-sharedarraybuffer": "bin/app.js"
   },
   "files": [
     "dist",
