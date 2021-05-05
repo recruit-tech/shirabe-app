@@ -19,6 +19,7 @@ Checker for using [`SharedArrayBuffer`](https://developer.mozilla.org/ja/docs/We
 ## Options
 
 Emulate devices (Pixel 2 XL):
+
 ```sh
 {
   "urls": {
@@ -41,4 +42,3 @@ Emulate devices (Pixel 2 XL):
 ```
 
 Config Reference: https://github.com/microsoft/playwright/blob/master/src/server/deviceDescriptors.js
-
