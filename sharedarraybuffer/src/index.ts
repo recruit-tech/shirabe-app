@@ -8,7 +8,7 @@ import arg from 'arg'
 import type { RunnerConfig } from '@shirabe/cli'
 
 const PACKAGE_NAME = '@shirabe/sharedarraybuffer'
-const VERSION = 'v0.0.1'
+const VERSION = 'v0.0.4'
 const HELP_MESSAGE = `
 Usage: ${PACKAGE_NAME} [options...] <JSON file>
 
